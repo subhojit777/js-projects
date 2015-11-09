@@ -1,0 +1,13 @@
+#output {
+  border: 1px solid;
+  width: 100px;
+  height: 20px;
+  text-align: right;
+  padding: 0 5px;
+}
+.row {
+  margin-top: 5px;
+}
+.key {
+  width: 25px;
+}
