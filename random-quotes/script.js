@@ -27,6 +27,7 @@ function RandomQuoteGenerator() {
   this.quoteGeneratorButton = document.getElementById('quote-generator');
   this.quotePlaceholder = document.getElementById('quote');
   this.quoteAuthorPlaceholder = document.getElementById('author');
+  this.lastQuotePosition = -1;
 }
 
 /**
@@ -60,7 +61,14 @@ RandomQuoteGenerator.prototype.initialRandomQuote = function() {
  * Load a random quote and render.
  */
 RandomQuoteGenerator.prototype.loadRandomQuote = function() {
-  var randomQuotePosition = this.getRandomQuotePosition();
+  var randomQuotePosition = -1;
+
+  // Make sure it always generates random quote.
+  do {
+    randomQuotePosition = this.getRandomQuotePosition();
+  } while (randomQuotePosition == this.lastQuotePosition);
+  this.lastQuotePosition = randomQuotePosition;
+
   this.quotePlaceholder.textContent = this.quotes[randomQuotePosition].quote;
   this.quoteAuthorPlaceholder.textContent = this.quotes[randomQuotePosition].author;
 }
