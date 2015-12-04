@@ -27,6 +27,7 @@ function RandomQuoteGenerator() {
   this.quoteGeneratorButton = document.getElementById('quote-generator');
   this.quotePlaceholder = document.getElementById('quote');
   this.quoteAuthorPlaceholder = document.getElementById('author');
+  this.tweet = document.getElementById('tweet');
   this.lastQuotePosition = -1;
 }
 
@@ -71,6 +72,10 @@ RandomQuoteGenerator.prototype.loadRandomQuote = function() {
 
   this.quotePlaceholder.textContent = this.quotes[randomQuotePosition].quote;
   this.quoteAuthorPlaceholder.textContent = this.quotes[randomQuotePosition].author;
+
+  // http://stackoverflow.com/a/18622535/1233922
+  this.tweet.innerHTML = '<a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(this.quotes[randomQuotePosition].quote) + ' - ' + encodeURIComponent(this.quotes[randomQuotePosition].author) + '" data-size="large"></a>';
+  twttr.widgets.load();
 }
 
 RandomQuoteGenerator.prototype.init = function() {
