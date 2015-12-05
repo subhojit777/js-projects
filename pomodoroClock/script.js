@@ -90,6 +90,7 @@ PomodoroClock.prototype.startTimer = function() {
       this.elementAddBreak.disabled = true;
       this.elementReduceSession.disabled = true;
       this.elementAddSession.disabled = true;
+      this.elementReset.disabled = true;
 
       this.timer = setInterval(function() {
         this.date.setTime(this.date.getTime() - 1000);
@@ -119,6 +120,7 @@ PomodoroClock.prototype.startTimer = function() {
 
       this.elementReduceBreak.disabled = false;
       this.elementAddBreak.disabled = false;
+      this.elementReset.disabled = false;
       // Make sure session interval cannot be changed while timer break is on.
       if (!this.timerBreakStatus) {
         this.elementReduceSession.disabled = false;
@@ -131,6 +133,17 @@ PomodoroClock.prototype.startTimer = function() {
 }
 
 /**
+ * Reset timer.
+ */
+PomodoroClock.prototype.reset = function() {
+  this.elementReset.addEventListener('click', function() {
+    this.timerStatus = false;
+    this.timerBreakStatus = false;
+    this.elementTimerCount.innerText = this.elementSessionLength.innerText + ':00';
+  }.bind(this));
+}
+
+/**
  * Initialize pomodoro clock.
  */
 PomodoroClock.prototype.init = function() {
@@ -139,6 +152,7 @@ PomodoroClock.prototype.init = function() {
   this.reduceSession();
   this.addSession();
   this.startTimer();
+  this.reset();
 }
 
 var pomodoroClock = new PomodoroClock();
