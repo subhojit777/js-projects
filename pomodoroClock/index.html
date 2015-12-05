@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pomodoro Clock</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>Pomodoro Clock</h3>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-xs-6">
+          <div class="label label-primary">Break Length</div>
+          <div class="widget">
+            <button class="btn btn-default" id="reduce-break">-</button>
+            <span class="length" id="break-length">5</span>
+            <button class="btn btn-default" id="add-break">+</button>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="label label-primary">Session Length</div>
+          <div class="widget">
+            <button class="btn btn-default" id="reduce-session">-</button>
+            <span class="length" id="session-length">25</span>
+            <button class="btn btn-default" id="add-session">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-xs-12">
+          <div id="timer">
+            <h3>Session</h3>
+            <h4 id="timer-count">25:00</h4>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <button class="btn btn-default" id="reset">Reset</button>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="script.js" type="text/javascript"></script>
+  </body>
+</html>
