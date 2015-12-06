@@ -20,6 +20,7 @@ function PomodoroClock() {
   this.timerBreakStatus = false;
   this.date = new Date();
   this.timer = null;
+  this.tone = new Audio('tone.mp3');
 }
 
 /**
@@ -105,12 +106,14 @@ PomodoroClock.prototype.startTimer = function() {
 
             this.date.setMinutes(this.elementBreakLength.innerText);
             this.date.setSeconds(0);
+            this.tone.play();
           }
           else {
             this.timerBreakStatus = false;
 
             this.date.setMinutes(this.elementSessionLength.innerText);
             this.date.setSeconds(0);
+            this.tone.play();
           }
         }
       }.bind(this), 1000);
