@@ -1,0 +1,15 @@
+body {
+  background: #D64E34;
+  color: beige;
+}
+.label {
+  color: inherit;
+}
+.length {
+  font-size: 18px;
+  margin: 0 20px;
+}
+#timer {
+  cursor: pointer;
+  display: inline-block;
+}
