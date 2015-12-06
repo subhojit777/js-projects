@@ -9,7 +9,7 @@ body {
   font-size: 18px;
   margin: 0 20px;
 }
-#timer {
+.timer {
   cursor: pointer;
   display: inline-block;
   border-radius: 50%;
