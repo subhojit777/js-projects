@@ -13,12 +13,23 @@ function PomodoroClock() {
   this.elementTimer = document.getElementById('timer');
   this.elementTimerCount = document.getElementById('timer-count');
   this.elementReset = document.getElementById('reset');
+  this.elementProgressBar = document.getElementById('progress-bar');
 
   // Time status - whether timer is on or off.
   this.timerStatus = false;
   // Break status - whether break timer is on or off.
   this.timerBreakStatus = false;
+  // Current date as per timer.
   this.date = new Date();
+
+  // Metadata required for progress bar.
+  // Date for comparing with current timer date.
+  this.relativeDate = new Date();
+  this.relativeDate.setMinutes(25);
+  this.relativeDate.setSeconds(0);
+  // Full timer count.
+  this.timerFullCount = 25 * 60000;
+
   this.timer = null;
   this.tone = new Audio('tone.mp3');
 }
@@ -33,6 +44,10 @@ PomodoroClock.prototype.reduceBreak = function() {
 
       if (this.timerBreakStatus) {
         this.elementTimerCount.innerText = this.elementBreakLength.innerText + ':' + '00';
+
+        this.timerFullCount = parseInt(this.elementBreakLength.innerText) * 60000;
+        this.relativeDate.setMinutes(this.elementBreakLength.innerText);
+        this.relativeDate.setSeconds(0);
       }
     }
   }.bind(this));
@@ -47,6 +62,10 @@ PomodoroClock.prototype.addBreak = function() {
 
     if (this.timerBreakStatus) {
       this.elementTimerCount.innerText = this.elementBreakLength.innerText + ':' + '00';
+
+      this.timerFullCount = parseInt(this.elementBreakLength.innerText) * 60000;
+      this.relativeDate.setMinutes(this.elementBreakLength.innerText);
+      this.relativeDate.setSeconds(0);
     }
   }.bind(this));
 }
@@ -59,6 +78,10 @@ PomodoroClock.prototype.reduceSession = function() {
     if (parseInt(this.elementSessionLength.innerText) > 1) {
       this.elementSessionLength.innerText = parseInt(this.elementSessionLength.innerText) - 1;
       this.elementTimerCount.innerText = this.elementSessionLength.innerText + ':' + '00';
+
+      this.timerFullCount = parseInt(this.elementSessionLength.innerText) * 60000;
+      this.relativeDate.setMinutes(this.elementSessionLength.innerText);
+      this.relativeDate.setSeconds(0);
     }
   }.bind(this));
 }
@@ -70,6 +93,10 @@ PomodoroClock.prototype.addSession = function() {
   this.elementAddSession.addEventListener('click', function() {
     this.elementSessionLength.innerText = parseInt(this.elementSessionLength.innerText) + 1;
     this.elementTimerCount.innerText = this.elementSessionLength.innerText + ':' + '00';
+
+    this.timerFullCount = parseInt(this.elementSessionLength.innerText) * 60000;
+    this.relativeDate.setMinutes(this.elementSessionLength.innerText);
+    this.relativeDate.setSeconds(0);
   }.bind(this));
 }
 
@@ -93,11 +120,15 @@ PomodoroClock.prototype.startTimer = function() {
       this.elementAddSession.disabled = true;
       this.elementReset.disabled = true;
 
+      this.elementProgressBar.classList.add('active');
+
       this.timer = setInterval(function() {
         this.date.setTime(this.date.getTime() - 1000);
         // Make sure seconds is always two digit.
         // http://stackoverflow.com/a/6040556/1233922
         this.elementTimerCount.innerText = this.date.getMinutes() + ':' + ('0' + this.date.getSeconds()).slice(-2);
+
+        this.elementProgressBar.style.width = Math.round(((this.relativeDate.getTime() - this.date.getTime()) / this.timerFullCount) * 100) + '%';
 
         // When timer hits 0 - we toggle timer break status.
         if (this.elementTimerCount.innerText == '0:00') {
@@ -106,6 +137,13 @@ PomodoroClock.prototype.startTimer = function() {
 
             this.date.setMinutes(this.elementBreakLength.innerText);
             this.date.setSeconds(0);
+
+            this.relativeDate.setMinutes(this.elementBreakLength.innerText);
+            this.relativeDate.setSeconds(0);
+            this.timerFullCount = parseInt(this.elementBreakLength.innerText) * 60000;
+            this.elementProgressBar.classList.remove('progress-bar-success');
+            this.elementProgressBar.classList.add('progress-bar-info');
+
             this.tone.play();
           }
           else {
@@ -113,6 +151,13 @@ PomodoroClock.prototype.startTimer = function() {
 
             this.date.setMinutes(this.elementSessionLength.innerText);
             this.date.setSeconds(0);
+
+            this.relativeDate.setMinutes(this.elementSessionLength.innerText);
+            this.relativeDate.setSeconds(0);
+            this.timerFullCount = parseInt(this.elementSessionLength.innerText) * 60000;
+            this.elementProgressBar.classList.remove('progress-bar-info');
+            this.elementProgressBar.classList.add('progress-bar-success');
+
             this.tone.play();
           }
         }
@@ -130,6 +175,8 @@ PomodoroClock.prototype.startTimer = function() {
         this.elementAddSession.disabled = false;
       }
 
+      this.elementProgressBar.classList.remove('active');
+
       clearInterval(this.timer);
     }
   }.bind(this));
@@ -143,6 +190,13 @@ PomodoroClock.prototype.reset = function() {
     this.timerStatus = false;
     this.timerBreakStatus = false;
     this.elementTimerCount.innerText = this.elementSessionLength.innerText + ':00';
+
+    this.elementProgressBar.style.width = '0%';
+    this.elementProgressBar.classList.remove('progress-bar-info');
+    this.elementProgressBar.classList.add('progress-bar-success');
+    this.timerFullCount = parseInt(this.elementSessionLength.innerText) * 60000;
+    this.relativeDate.setMinutes(this.elementSessionLength.innerText);
+    this.relativeDate.setSeconds(0);
   }.bind(this));
 }
 
