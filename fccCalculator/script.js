@@ -19,6 +19,9 @@ function Calculator() {
   this.MAX_DIGITS = 12;
 }
 
+/**
+ * Event handler for calculator power button.
+ */
 Calculator.prototype.eventCalculatorPower = function() {
   this.elementPowerButton.addEventListener('click', function() {
     // Toggle calculator power.
@@ -32,6 +35,9 @@ Calculator.prototype.eventCalculatorPower = function() {
   }.bind(this));
 }
 
+/**
+ * Event handler for calculator clear button.
+ */
 Calculator.prototype.eventClearOutput = function() {
   this.elementClearButton.addEventListener('click', function() {
     if (this.isCalculatorOn) {
@@ -40,6 +46,9 @@ Calculator.prototype.eventClearOutput = function() {
   }.bind(this));
 }
 
+/**
+ * Reset calculator state.
+ */
 Calculator.prototype.resetCalculator = function() {
   this.clearOutput();
   this.expression = {
@@ -50,40 +59,48 @@ Calculator.prototype.resetCalculator = function() {
 }
 
 /**
- * Resets the display of the calculator.
+ * Clear calculator display.
  */
 Calculator.prototype.clearOutput = function() {
   this.elementOutput.textContent = '';
 }
 
 /**
- * Updates the calculator display.
+ * Update calculator display.
  */
 Calculator.prototype.updateOutput = function(content) {
   this.elementOutput.textContent = content;
 }
 
 /**
- * Gets the value currently displayed on the calculator.
+ * Return the figure currently displayed on the calculator.
  */
 Calculator.prototype.getOutput = function() {
   return this.elementOutput.textContent;
 }
 
 /**
- * Formats number to two decimal places and makes sure that it is a number.
+ * Format number as per calculator configuration.
+ *
+ * Configuration:
+ * - Maximum number of digits.
+ *   - see this.MAX_DIGITS
  */
 Calculator.prototype.toNumber = function(num) {
+  // Number is integer.
+  // So truncate it to MAX_DIGITS if greater than MAX_DIGITS.
   if (num.toString().indexOf('.') == -1) {
-    if (num.toString().length < 12) {
+    if (num.toString().length < this.MAX_DIGITS) {
       return parseInt(num, 10);
     }
     else {
       return parseInt(num.toString().substring(0, this.MAX_DIGITS));
     }
   }
+  // Number is decimal.
+  // So truncate it to MAX_DIGITS (excluding '.') if greater than MAX_DIGITS.
   else {
-    if (num.toString().length - 1 < 12) {
+    if (num.toString().length - 1 < this.MAX_DIGITS) {
       return parseFloat(num);
     }
     else {
@@ -92,6 +109,9 @@ Calculator.prototype.toNumber = function(num) {
   }
 }
 
+/**
+ * Event handler for numbers.
+ */
 Calculator.prototype.eventInputNumbers = function() {
   for (var i = 0; i < this.elementNumbersButton.length; i++) {
     this.elementNumbersButton[i].addEventListener('click', function(event) {
@@ -101,6 +121,7 @@ Calculator.prototype.eventInputNumbers = function() {
           this.firstInput = false;
         }
         else {
+          // Make sure input does not go more than MAX_DIGITS.
           if (this.getOutput().length < this.MAX_DIGITS) {
             this.updateOutput(this.getOutput() + event.target.getAttribute('value'));
           }
@@ -110,6 +131,9 @@ Calculator.prototype.eventInputNumbers = function() {
   }
 }
 
+/**
+ * Event handler for decimal.
+ */
 Calculator.prototype.eventDecimal = function() {
   this.elementDecimalButton.addEventListener('click', function() {
     if (this.isCalculatorOn) {
@@ -120,11 +144,16 @@ Calculator.prototype.eventDecimal = function() {
   }.bind(this));
 }
 
+/**
+ * Event handler for operators.
+ */
 Calculator.prototype.eventInputOperators = function() {
   for (var i = 0; i < this.elementOperatorsButton.length; i++) {
     this.elementOperatorsButton[i].addEventListener('click', function(event) {
       if (this.isCalculatorOn) {
         if (event.target.getAttribute('value') != '=') {
+          // Operator entered for the first time.
+          // Hence, initialize this.expression
           if (!this.expression.firstOperand) {
             this.expression = {
               'firstOperand': parseFloat(this.getOutput()),
@@ -132,9 +161,13 @@ Calculator.prototype.eventInputOperators = function() {
               'secondOperator': ''
             };
           }
+          // This is going to be executed when you are using result from
+          // previous expression.
           else if (this.expression.firstOperand && !this.expression.operator) {
             this.expression.operator = event.target.getAttribute('value');
           }
+          // This is going to be executed when you are creating chain of
+          // expression.
           else if (this.expression.firstOperand && this.expression.operator && !this.firstInput) {
             this.expression.secondOperand = parseFloat(this.getOutput());
             var result = this.toNumber(this.evaluateExpression());
@@ -145,6 +178,7 @@ Calculator.prototype.eventInputOperators = function() {
             };
           }
         }
+        // Evaluate expression.
         else if (this.expression.firstOperand && this.expression.operator) {
           this.expression.secondOperand = parseFloat(this.getOutput());
           var result = this.toNumber(this.evaluateExpression());
@@ -162,6 +196,9 @@ Calculator.prototype.eventInputOperators = function() {
   }
 }
 
+/**
+ * Event handler for percent button.
+ */
 Calculator.prototype.eventPercent = function() {
   this.elementPercentButton.addEventListener('click', function() {
     if (this.expression.firstOperand != '' && this.expression.operator == '/' && this.isCalculatorOn) {
@@ -177,6 +214,9 @@ Calculator.prototype.eventPercent = function() {
   }.bind(this));
 }
 
+/**
+ * Evaluate expression.
+ */
 Calculator.prototype.evaluateExpression = function() {
   var result = null;
 
