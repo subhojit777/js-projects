@@ -6,18 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Calculator</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheet.css">
   </head>
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-md-4"></div>
-        <div class="calculator-wrapper col-md-4">
-          <h2 class="text-center">Citizen (12 digits)</h2>
+        <div class="col-xs-4"></div>
+        <div class="calculator-wrapper col-xs-4">
+          <h3 class="text-center">CITIZEN (12-DIGIT)</h3>
           <div id="output" class="well"></div>
-          <div id="input" class="col-md-12">
+          <div id="input" class="col-xs-12">
             <div class="row">
-              <div id="status"><span class="off"></span></div>
-              <button value="ac" data-action="power" class="btn btn-default">AC</button>
+              <div id="status" class="status"><span class="off"></span></div>
+              <button value="ac" data-action="power" class="btn btn-default power">AC</button>
               <button value="ce" data-action="clear" class="btn btn-default">CE</button>
               <button value="%" data-action="percent" class="btn btn-default">%</button>
             </div>
@@ -47,7 +48,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4"></div>
+        <div class="col-xs-4"></div>
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

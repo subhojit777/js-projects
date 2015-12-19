@@ -1,0 +1,57 @@
+@font-face {
+  font-family: 'Radioland';
+  src: url('fonts/radioland.ttf') format('truetype');
+}
+.calculator-wrapper {
+  text-align: center;
+  margin-top: 20px;
+  border: 1px solid;
+  padding: 15px 0;
+  border-radius: 10px;
+  background: #222222;
+  color: #FFFFFF;
+}
+.well {
+  font-family: 'Radioland', Fallback, sans-serif;
+  font-size: 24px;
+  height: 48px;
+  text-align: right;
+  padding: 10px 19px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 71%;
+  background: #6E979A;
+  border-width: 2px;
+  color: #000000;
+}
+.btn {
+  margin-right: 15px;
+  margin-bottom: 10px;
+  width: 50px;
+  background: #405969;
+  color: #FFFFFF;
+  border: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+.btn.power {
+  background: #FF4C1E;
+}
+.row .btn:last-child {
+  margin-right: 0;
+}
+.status {
+  display: inline-block;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  width: 50px;
+  vertical-align: middle;
+}
+.on {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: #690;
+  border-radius: 50%;
+  box-shadow: #000 0 -1px 7px 1px, inset #460 0 -1px 9px, #7D0 0 2px 12px;
+}
