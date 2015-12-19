@@ -8,6 +8,8 @@ function Calculator() {
   this.elementOperatorsButton = document.querySelectorAll('[data-action=operator]');
   this.elementNumbersButton = document.querySelectorAll('[data-action=number]');
   this.elementDecimalButton = document.querySelectorAll('[data-action=decimal]')[0];
+  this.elementLedStatus = document.getElementById('status');
+  this.elementLed = this.elementLedStatus.querySelector('span');
 
   this.isCalculatorOn = false;
   this.expression = {
@@ -28,9 +30,11 @@ Calculator.prototype.eventCalculatorPower = function() {
     if (this.isCalculatorOn) {
       this.resetCalculator();
       this.isCalculatorOn = false;
+      this.elementLed.className = 'off';
     }
     else {
       this.isCalculatorOn = true;
+      this.elementLed.className = 'on';
     }
   }.bind(this));
 }

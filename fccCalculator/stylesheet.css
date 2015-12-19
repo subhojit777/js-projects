@@ -55,3 +55,11 @@
   border-radius: 50%;
   box-shadow: #000 0 -1px 7px 1px, inset #460 0 -1px 9px, #7D0 0 2px 12px;
 }
+.off {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: #333333;
+  border-radius: 50%;
+  box-shadow: #000 0 -1px 7px 1px, inset #460 0 -1px 9px, #666666 0 2px 12px;
+}
