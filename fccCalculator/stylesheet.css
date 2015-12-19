@@ -28,10 +28,13 @@ body {
   border-width: 2px;
   color: #000000;
 }
-.btn {
+.btn,
+.status {
   margin-right: 15px;
   margin-bottom: 10px;
   width: 50px;
+}
+.btn {
   background: #405969;
   color: #FFFFFF;
   border: none;
@@ -46,9 +49,6 @@ body {
 }
 .status {
   display: inline-block;
-  margin-right: 15px;
-  margin-bottom: 10px;
-  width: 50px;
   vertical-align: middle;
 }
 .on {
