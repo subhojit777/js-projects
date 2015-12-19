@@ -35,6 +35,7 @@ Calculator.prototype.eventCalculatorPower = function() {
     else {
       this.isCalculatorOn = true;
       this.elementLed.className = 'on';
+      this.initialOutput();
     }
   }.bind(this));
 }
@@ -46,8 +47,16 @@ Calculator.prototype.eventClearOutput = function() {
   this.elementClearButton.addEventListener('click', function() {
     if (this.isCalculatorOn) {
       this.resetCalculator();
+      this.initialOutput();
     }
   }.bind(this));
+}
+
+/**
+ * Initialize display of the calculator.
+ */
+Calculator.prototype.initialOutput = function() {
+  this.updateOutput('0');
 }
 
 /**
