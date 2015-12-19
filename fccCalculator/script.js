@@ -69,6 +69,7 @@ Calculator.prototype.resetCalculator = function() {
     'operator': '',
     'secondOperator': ''
   };
+  this.firstInput = true;
 }
 
 /**
