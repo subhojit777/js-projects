@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Local Weather</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="libraries/bootstrap-switch/bootstrap-switch.min.css">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="loading-wrapper">Loading...</div>
+          <div class="weather-wrapper hidden">
+            <div class="title-wrapper">
+              <h3 class="text-center">Local Weather</h3>
+              <div class="temperature-toggle-wrapper">
+                <input type="checkbox" name="temperature-toggle">
+              </div>
+            </div>
+            <div class="weather-location"></div>
+            <div class="weather-description">
+              <div class="weather-icon"><img src="" /></div>
+              <div class="weather-temperature"></div>
+            </div>
+            <div class="weather-more-information">
+              <div class="weather-main"></div>
+              <div class="weather-wind-information">
+                <div class="label">Wind</div>
+                <div class="data"></div>
+              </div>
+              <div class="weather-humidity-information">
+                <div class="label">Humidity</div>
+                <div class="data"></div>
+              </div>
+              <div class="weather-pressure-information">
+                <div class="label">Pressure</div>
+                <div class="data"></div>
+              </div>
+              <div class="weather-clouds-information">
+                <div class="label">Cloudiness</div>
+                <div class="data"></div>
+              </div>
+              <div class="weather-rain-information hidden">
+                <div class="label">Rain (last 3 hours)</div>
+                <div class="data"></div>
+              </div>
+              <div class="weather-snow-information hidden">
+                <div class="label">Snow (last 3 hours)</div>
+                <div class="data"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="libraries/bootstrap-switch/bootstrap-switch.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
