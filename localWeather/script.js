@@ -151,6 +151,7 @@ Weather.prototype.initBootstrapSwitch = function() {
         self.unitFormat = 'metric';
       }
 
+      self.body.css('background-image', '');
       self.loadingWrapper.removeClass('hidden');
       self.weatherWrapper.addClass('hidden');
       self.getWeatherData();
