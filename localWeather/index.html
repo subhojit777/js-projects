@@ -22,44 +22,46 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-4 col-xs-offset-4">
           <div class="weather-wrapper hidden">
-            <div class="title-wrapper">
-              <h3 class="text-center">Local Weather</h3>
+            <div class="title-wrapper text-center">
+              <h2 class="app-name">Local Weather</h2>
               <div class="temperature-toggle-wrapper">
-                <input type="checkbox" name="temperature-toggle">
+                <input type="checkbox" name="temperature-toggle" data-label-text="Imperial">
               </div>
             </div>
-            <div class="weather-location"></div>
-            <div class="weather-description">
-              <div class="weather-icon"><img src="" /></div>
-              <div class="weather-temperature"></div>
-            </div>
-            <div class="weather-more-information">
-              <div class="weather-main"></div>
-              <div class="weather-wind-information">
-                <div class="label">Wind</div>
-                <div class="data"></div>
+            <div class="weather-widget-wrapper">
+              <p class="weather-location lead"></p>
+              <div class="weather-description">
+                <div class="weather-icon inline-block"><img /></div>
+                <div class="weather-temperature inline-block"></div>
               </div>
-              <div class="weather-humidity-information">
-                <div class="label">Humidity</div>
-                <div class="data"></div>
-              </div>
-              <div class="weather-pressure-information">
-                <div class="label">Pressure</div>
-                <div class="data"></div>
-              </div>
-              <div class="weather-clouds-information">
-                <div class="label">Cloudiness</div>
-                <div class="data"></div>
-              </div>
-              <div class="weather-rain-information hidden">
-                <div class="label">Rain (last 3 hours)</div>
-                <div class="data"></div>
-              </div>
-              <div class="weather-snow-information hidden">
-                <div class="label">Snow (last 3 hours)</div>
-                <div class="data"></div>
+              <div class="weather-more-information">
+                <p class="weather-main lead"></p>
+                <div class="weather-wind-information">
+                  <div class="label label-primary inline-block">Wind</div>
+                  <div class="data inline-block"></div>
+                </div>
+                <div class="weather-humidity-information">
+                  <div class="label label-primary inline-block">Humidity</div>
+                  <div class="data inline-block"></div>
+                </div>
+                <div class="weather-pressure-information">
+                  <div class="label label-primary inline-block">Pressure</div>
+                  <div class="data inline-block"></div>
+                </div>
+                <div class="weather-clouds-information">
+                  <div class="label label-primary inline-block">Cloudiness</div>
+                  <div class="data inline-block"></div>
+                </div>
+                <div class="weather-rain-information hidden">
+                  <div class="label label-primary inline-block">Rain (last 3 hours)</div>
+                  <div class="data inline-block"></div>
+                </div>
+                <div class="weather-snow-information hidden">
+                  <div class="label label-primary inline-block">Snow (last 3 hours)</div>
+                  <div class="data inline-block"></div>
+                </div>
               </div>
             </div>
           </div>

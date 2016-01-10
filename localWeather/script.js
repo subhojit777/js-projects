@@ -111,7 +111,7 @@ Weather.prototype.showWeatherConditions = function() {
   this.weatherIconImage.attr('src', iconSource);
   this.weatherTemperature.html(this.weatherData.main.temp + (this.unitFormat == 'metric' ? '&deg;C' : '&deg;F'));
   this.weatherMain.text(this.weatherData.weather[0].main);
-  this.weatherWindData.text(this.weatherData.wind.speed + (this.unitFormat == 'metric' ? 'meter/sec' : 'miles/hour') + this.degreeToDirection(this.weatherData.wind.deg));
+  this.weatherWindData.text(this.weatherData.wind.speed + (this.unitFormat == 'metric' ? ' meter/sec ' : ' miles/hour ') + this.degreeToDirection(this.weatherData.wind.deg));
   this.weatherHumidityData.text(this.weatherData.main.humidity + '%');
   this.weatherPressureData.text(this.weatherData.main.pressure + ' hPa');
   this.weatherCloudsData.text(this.weatherData.clouds.all + '%');
@@ -145,10 +145,12 @@ Weather.prototype.initBootstrapSwitch = function() {
       if (!state) {
         // Load imperial unit data (fahrenheit).
         self.unitFormat = 'imperial';
+        self.bootstrapSwitchLabel.text('Metric');
       }
       else {
         // Load metric unut data (celsius).
         self.unitFormat = 'metric';
+          self.bootstrapSwitchLabel.text('Imperial');
       }
 
       self.body.css('background-image', '');
@@ -163,6 +165,8 @@ Weather.prototype.init = function() {
   this.getCurrentLocation();
   this.getWeatherCodes();
   this.initBootstrapSwitch();
+  // Bootstrap switch is not initialized.
+  this.bootstrapSwitchLabel = $('.bootstrap-switch-label');
 }
 
 $(document).ready(function() {
