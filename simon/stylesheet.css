@@ -1,0 +1,11 @@
+.square {
+  height: 100px;
+  width: 100px;
+  border: 1px solid #EEEEEE;
+}
+.inline {
+  display: inline-block;
+}
+.blink {
+  background: #FF0000;
+}
