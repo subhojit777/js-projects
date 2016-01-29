@@ -3,7 +3,7 @@
 function Simon() {
   this.buttonIndexes = [0, 1, 2, 3];
   this.gameSeries = [];
-  this.gameTempo = 10000;
+  this.gameTempo = 800;
   this.gameStatus = 0;
   this.strictMode = 0;
   this.gameStart = 0;
@@ -65,7 +65,7 @@ Simon.prototype.eventStrictMode = function() {
 }
 
 Simon.prototype.eventSquare0 = function() {
-  this.elementSquare0.on('mousedown', function() {
+  this.elementSquare0.on('click', function() {
     if (this.userTurn == 1) {
       if (this.gameSeries[this.userTurnCurrentIndex] == 0) {
         this.elementSquare0.addClass('blink');
@@ -74,6 +74,7 @@ Simon.prototype.eventSquare0 = function() {
 
         if (this.userTurnCurrentIndex == this.gameSeries.length) {
           this.userTurn = 0;
+          this.delay();
           this.generateSeries();
         }
       }
@@ -94,7 +95,7 @@ Simon.prototype.eventSquare0 = function() {
 }
 
 Simon.prototype.eventSquare1 = function() {
-  this.elementSquare1.on('mousedown', function() {
+  this.elementSquare1.on('click', function() {
     if (this.userTurn == 1) {
       if (this.gameSeries[this.userTurnCurrentIndex] == 1) {
         this.elementSquare1.addClass('blink');
@@ -103,6 +104,7 @@ Simon.prototype.eventSquare1 = function() {
 
         if (this.userTurnCurrentIndex == this.gameSeries.length) {
           this.userTurn = 0;
+          this.delay();
           this.generateSeries();
         }
       }
@@ -123,7 +125,7 @@ Simon.prototype.eventSquare1 = function() {
 }
 
 Simon.prototype.eventSquare2 = function() {
-  this.elementSquare2.on('mousedown', function() {
+  this.elementSquare2.on('click', function() {
     if (this.userTurn == 1) {
       if (this.gameSeries[this.userTurnCurrentIndex] == 2) {
         this.elementSquare2.addClass('blink');
@@ -132,6 +134,7 @@ Simon.prototype.eventSquare2 = function() {
 
         if (this.userTurnCurrentIndex == this.gameSeries.length) {
           this.userTurn = 0;
+          this.delay();
           this.generateSeries();
         }
       }
@@ -152,7 +155,7 @@ Simon.prototype.eventSquare2 = function() {
 }
 
 Simon.prototype.eventSquare3 = function() {
-  this.elementSquare3.on('mousedown', function() {
+  this.elementSquare3.on('click', function() {
     if (this.userTurn == 1) {
       if (this.gameSeries[this.userTurnCurrentIndex] == 3) {
         this.elementSquare3.addClass('blink');
@@ -161,6 +164,7 @@ Simon.prototype.eventSquare3 = function() {
 
         if (this.userTurnCurrentIndex == this.gameSeries.length) {
           this.userTurn = 0;
+          this.delay();
           this.generateSeries();
         }
       }
@@ -190,29 +194,35 @@ Simon.prototype.previewSeries = function() {
   for (var i = 0; i < this.gameSeries.length; i++) {
     switch (this.gameSeries[i]) {
       case 0:
-        this.elementSquare0.trigger('mousedown');
-        this.elementSquare0.trigger('mouseup');
+        //this.elementSquare0.trigger('mousedown');
+        //this.elementSquare0.trigger('mouseup');
+        this.elementSquare0.click();
 
         break;
 
       case 1:
-        this.elementSquare1.trigger('mousedown');
-        this.elementSquare1.trigger('mouseup');
+        //this.elementSquare1.trigger('mousedown');
+        //this.elementSquare1.trigger('mouseup');
+        this.elementSquare1.click();
 
         break;
 
       case 2:
-        this.elementSquare2.trigger('mousedown');
-        this.elementSquare2.trigger('mouseup');
+        //this.elementSquare2.trigger('mousedown');
+        //this.elementSquare2.trigger('mouseup');
+        this.elementSquare2.click();
 
         break;
 
       case 3:
-        this.elementSquare3.trigger('mousedown');
-        this.elementSquare3.trigger('mouseup');
+        //this.elementSquare3.trigger('mousedown');
+        //this.elementSquare3.trigger('mouseup');
+        this.elementSquare3.click();
 
         break;
     }
+
+    this.delay();
   }
 
   this.userTurn = 1;
