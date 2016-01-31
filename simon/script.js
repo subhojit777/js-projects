@@ -22,16 +22,16 @@ function Simon() {
   this.elementCount = $('#count');
 
   this.squareSound0 = new Howl({
-    urls: ['effects/simonSound1.mp3']
+    urls: ['effects/simonSound0.wav']
   });
   this.squareSound1 = new Howl({
-    urls: ['effects/simonSound2.mp3']
+    urls: ['effects/simonSound1.wav']
   });
   this.squareSound2 = new Howl({
-    urls: ['effects/simonSound3.mp3']
+    urls: ['effects/simonSound2.wav']
   });
   this.squareSound3 = new Howl({
-    urls: ['effects/simonSound4.mp3']
+    urls: ['effects/simonSound3.wav']
   });
   this.errorSound = new Howl({
     urls: ['effects/buzz.mp3']
@@ -65,7 +65,7 @@ Simon.prototype.eventStrictMode = function() {
 }
 
 Simon.prototype.eventSquare0 = function() {
-  this.elementSquare0.on('click', function() {
+  this.elementSquare0.on('mousedown', function() {
     if (this.userTurn == 1) {
       if (this.gameSeries[this.userTurnCurrentIndex] == 0) {
         this.elementSquare0.addClass('blink');
@@ -95,7 +95,7 @@ Simon.prototype.eventSquare0 = function() {
 }
 
 Simon.prototype.eventSquare1 = function() {
-  this.elementSquare1.on('click', function() {
+  this.elementSquare1.on('mousedown', function() {
     if (this.userTurn == 1) {
       if (this.gameSeries[this.userTurnCurrentIndex] == 1) {
         this.elementSquare1.addClass('blink');
@@ -125,7 +125,7 @@ Simon.prototype.eventSquare1 = function() {
 }
 
 Simon.prototype.eventSquare2 = function() {
-  this.elementSquare2.on('click', function() {
+  this.elementSquare2.on('mousedown', function() {
     if (this.userTurn == 1) {
       if (this.gameSeries[this.userTurnCurrentIndex] == 2) {
         this.elementSquare2.addClass('blink');
@@ -155,7 +155,7 @@ Simon.prototype.eventSquare2 = function() {
 }
 
 Simon.prototype.eventSquare3 = function() {
-  this.elementSquare3.on('click', function() {
+  this.elementSquare3.on('mousedown', function() {
     if (this.userTurn == 1) {
       if (this.gameSeries[this.userTurnCurrentIndex] == 3) {
         this.elementSquare3.addClass('blink');
@@ -194,35 +194,37 @@ Simon.prototype.previewSeries = function() {
   for (var i = 0; i < this.gameSeries.length; i++) {
     switch (this.gameSeries[i]) {
       case 0:
-        //this.elementSquare0.trigger('mousedown');
-        //this.elementSquare0.trigger('mouseup');
-        this.elementSquare0.click();
+        this.elementSquare0.trigger('mousedown');
+        this.delay();
+        this.elementSquare0.trigger('mouseup');
+        //this.elementSquare0.click();
 
         break;
 
       case 1:
-        //this.elementSquare1.trigger('mousedown');
-        //this.elementSquare1.trigger('mouseup');
-        this.elementSquare1.click();
+        this.elementSquare1.trigger('mousedown');
+        this.delay();
+        this.elementSquare1.trigger('mouseup');
+        //this.elementSquare1.click();
 
         break;
 
       case 2:
-        //this.elementSquare2.trigger('mousedown');
-        //this.elementSquare2.trigger('mouseup');
-        this.elementSquare2.click();
+        this.elementSquare2.trigger('mousedown');
+        this.delay();
+        this.elementSquare2.trigger('mouseup');
+        //this.elementSquare2.click();
 
         break;
 
       case 3:
-        //this.elementSquare3.trigger('mousedown');
-        //this.elementSquare3.trigger('mouseup');
-        this.elementSquare3.click();
+        this.elementSquare3.trigger('mousedown');
+        this.delay();
+        this.elementSquare3.trigger('mouseup');
+        //this.elementSquare3.click();
 
         break;
     }
-
-    this.delay();
   }
 
   this.userTurn = 1;
