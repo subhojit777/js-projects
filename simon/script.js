@@ -74,17 +74,12 @@ Simon.prototype.eventSquare0 = function() {
 
         if (this.userTurnCurrentIndex == this.gameSeries.length) {
           this.userTurn = 0;
-          this.delay();
           this.generateSeries();
         }
       }
       else {
         this.eventFailed();
       }
-    }
-    else {
-      this.elementSquare0.addClass('blink');
-      this.squareSound0.play();
     }
   }.bind(this));
 
@@ -104,17 +99,12 @@ Simon.prototype.eventSquare1 = function() {
 
         if (this.userTurnCurrentIndex == this.gameSeries.length) {
           this.userTurn = 0;
-          this.delay();
           this.generateSeries();
         }
       }
       else {
         this.eventFailed();
       }
-    }
-    else {
-      this.elementSquare1.addClass('blink');
-      this.squareSound1.play();
     }
   }.bind(this));
 
@@ -134,17 +124,12 @@ Simon.prototype.eventSquare2 = function() {
 
         if (this.userTurnCurrentIndex == this.gameSeries.length) {
           this.userTurn = 0;
-          this.delay();
           this.generateSeries();
         }
       }
       else {
         this.eventFailed();
       }
-    }
-    else {
-      this.elementSquare2.addClass('blink');
-      this.squareSound2.play();
     }
   }.bind(this));
 
@@ -164,17 +149,12 @@ Simon.prototype.eventSquare3 = function() {
 
         if (this.userTurnCurrentIndex == this.gameSeries.length) {
           this.userTurn = 0;
-          this.delay();
           this.generateSeries();
         }
       }
       else {
         this.eventFailed();
       }
-    }
-    else {
-      this.elementSquare3.addClass('blink');
-      this.squareSound3.play();
     }
   }.bind(this));
 
@@ -191,44 +171,66 @@ Simon.prototype.getNextSequence = function() {
 
 Simon.prototype.previewSeries = function() {
   console.log(this.gameSeries);
-  for (var i = 0; i < this.gameSeries.length; i++) {
-    switch (this.gameSeries[i]) {
-      case 0:
-        this.elementSquare0.trigger('mousedown');
-        this.delay();
-        this.elementSquare0.trigger('mouseup');
-        //this.elementSquare0.click();
 
-        break;
-
-      case 1:
-        this.elementSquare1.trigger('mousedown');
-        this.delay();
-        this.elementSquare1.trigger('mouseup');
-        //this.elementSquare1.click();
-
-        break;
-
-      case 2:
-        this.elementSquare2.trigger('mousedown');
-        this.delay();
-        this.elementSquare2.trigger('mouseup');
-        //this.elementSquare2.click();
-
-        break;
-
-      case 3:
-        this.elementSquare3.trigger('mousedown');
-        this.delay();
-        this.elementSquare3.trigger('mouseup');
-        //this.elementSquare3.click();
-
-        break;
+	var i = 0;
+	var interval = setInterval(function() {
+		this.lightUp(this.gameSeries[i]);
+    i++;
+    if (i >= this.gameSeries.length) {
+      clearInterval(interval);
     }
-  }
+  }.bind(this), 600);
 
   this.userTurn = 1;
   this.userTurnCurrentIndex = 0;
+}
+
+Simon.prototype.lightUp = function(index) {
+  switch (index) {
+    case 0:
+      this.elementSquare0.addClass('blink');
+      this.squareSound0.play();
+
+      window.setTimeout(function() {
+        this.elementSquare0.removeClass('blink');
+        this.squareSound0.stop();
+      }.bind(this), this.gameTempo);
+
+      break;
+
+    case 1:
+      this.elementSquare1.addClass('blink');
+      this.squareSound1.play();
+
+      window.setTimeout(function() {
+        this.elementSquare1.removeClass('blink');
+        this.squareSound1.stop();
+      }.bind(this), this.gameTempo);
+
+      break;
+
+    case 2:
+      this.elementSquare2.addClass('blink');
+      this.squareSound2.play();
+
+      window.setTimeout(function() {
+        this.elementSquare2.removeClass('blink');
+        this.squareSound2.stop();
+      }.bind(this), this.gameTempo);
+
+      break;
+
+    case 3:
+      this.elementSquare3.addClass('blink');
+      this.squareSound3.play();
+
+      window.setTimeout(function() {
+        this.elementSquare3.removeClass('blink');
+        this.squareSound3.stop();
+      }.bind(this), this.gameTempo);
+
+      break;
+  }
 }
 
 Simon.prototype.generateSeries = function() {
