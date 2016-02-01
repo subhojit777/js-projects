@@ -174,12 +174,12 @@ Simon.prototype.previewSeries = function() {
 
 	var i = 0;
 	var interval = setInterval(function() {
-		this.lightUp(this.gameSeries[i]);
+    this.lightUp(this.gameSeries[i]);
     i++;
     if (i >= this.gameSeries.length) {
       clearInterval(interval);
     }
-  }.bind(this), 600);
+  }.bind(this), 1000);
 
   this.userTurn = 1;
   this.userTurnCurrentIndex = 0;
