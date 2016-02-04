@@ -71,11 +71,6 @@ Simon.prototype.eventSquare0 = function() {
         this.elementSquare0.addClass('blink');
         this.squareSound0.play();
         this.userTurnCurrentIndex++;
-
-        if (this.userTurnCurrentIndex == this.gameSeries.length) {
-          this.userTurn = 0;
-          this.generateSeries();
-        }
       }
       else {
         this.eventFailed();
@@ -86,6 +81,11 @@ Simon.prototype.eventSquare0 = function() {
   this.elementSquare0.on('mouseup', function() {
     this.elementSquare0.removeClass('blink');
     this.squareSound0.stop();
+
+    if (this.userTurnCurrentIndex == this.gameSeries.length) {
+      this.userTurn = 0;
+      this.generateSeries();
+    }
   }.bind(this));
 }
 
@@ -96,11 +96,6 @@ Simon.prototype.eventSquare1 = function() {
         this.elementSquare1.addClass('blink');
         this.squareSound1.play();
         this.userTurnCurrentIndex++;
-
-        if (this.userTurnCurrentIndex == this.gameSeries.length) {
-          this.userTurn = 0;
-          this.generateSeries();
-        }
       }
       else {
         this.eventFailed();
@@ -111,6 +106,11 @@ Simon.prototype.eventSquare1 = function() {
   this.elementSquare1.on('mouseup', function() {
     this.elementSquare1.removeClass('blink');
     this.squareSound1.stop();
+
+    if (this.userTurnCurrentIndex == this.gameSeries.length) {
+      this.userTurn = 0;
+      this.generateSeries();
+    }
   }.bind(this));
 }
 
@@ -121,11 +121,6 @@ Simon.prototype.eventSquare2 = function() {
         this.elementSquare2.addClass('blink');
         this.squareSound2.play();
         this.userTurnCurrentIndex++;
-
-        if (this.userTurnCurrentIndex == this.gameSeries.length) {
-          this.userTurn = 0;
-          this.generateSeries();
-        }
       }
       else {
         this.eventFailed();
@@ -136,6 +131,11 @@ Simon.prototype.eventSquare2 = function() {
   this.elementSquare2.on('mouseup', function() {
     this.elementSquare2.removeClass('blink');
     this.squareSound2.stop();
+
+    if (this.userTurnCurrentIndex == this.gameSeries.length) {
+      this.userTurn = 0;
+      this.generateSeries();
+    }
   }.bind(this));
 }
 
@@ -146,11 +146,6 @@ Simon.prototype.eventSquare3 = function() {
         this.elementSquare3.addClass('blink');
         this.squareSound3.play();
         this.userTurnCurrentIndex++;
-
-        if (this.userTurnCurrentIndex == this.gameSeries.length) {
-          this.userTurn = 0;
-          this.generateSeries();
-        }
       }
       else {
         this.eventFailed();
@@ -161,12 +156,17 @@ Simon.prototype.eventSquare3 = function() {
   this.elementSquare3.on('mouseup', function() {
     this.elementSquare3.removeClass('blink');
     this.squareSound3.stop();
+
+    if (this.userTurnCurrentIndex == this.gameSeries.length) {
+      this.userTurn = 0;
+      this.generateSeries();
+    }
   }.bind(this));
 }
 
 Simon.prototype.getNextSequence = function() {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-  return Math.floor(Math.random() * (0 - 3)) + 3;
+  return Math.floor(Math.random() * (3 - 0 + 1)) + 0;
 }
 
 Simon.prototype.previewSeries = function() {
