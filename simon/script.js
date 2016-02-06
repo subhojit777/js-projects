@@ -277,13 +277,6 @@ Simon.prototype.eventFailed = function() {
   }.bind(this), Simon.Props.ERROR_SOUND_DURATION);
 }
 
-Simon.prototype.delay = function() {
-  // Synchronous delay.
-  // http://stackoverflow.com/a/26844533/1233922
-  var dt = new Date();
-	while ((new Date()) - dt <= this.gameTempo) { /* Do nothing */ }
-}
-
 Simon.prototype.init = function() {
   this.eventGameStatus();
   this.eventGameStart();
