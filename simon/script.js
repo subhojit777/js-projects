@@ -40,7 +40,7 @@ function Simon() {
 Simon.Props = {
   INCREASE_TEMPO_LENGTHS: [5, 9, 13],
   PREVIEW_SOUND_TEMPO: 350,
-  ERROR_SOUND_DURATION: 1000
+  ACTION_DELAY: 1000
 };
 
 Simon.prototype.eventGameStatus = function() {
@@ -53,7 +53,10 @@ Simon.prototype.eventGameStart = function() {
   this.elementStart.click(function() {
     if (this.gameStatus) {
       if (this.gameStart) {
-        // TODO reset game
+        setTimeout(function() {
+          this.gameSeries = [];
+          this.generateSeries();
+        }.bind(this), Simon.Props.ACTION_DELAY);
       }
       else {
         this.gameStart = true;
@@ -185,6 +188,7 @@ Simon.prototype.getNextSequence = function() {
 Simon.prototype.previewSeries = function() {
   console.log(this.gameSeries);
 
+  // Thanks :) http://codeplanet.io/building-simon-says-javascript
 	var i = 0;
 	var interval = setInterval(function() {
     this.lightUp(this.gameSeries[i]);
@@ -257,6 +261,7 @@ Simon.prototype.generateSeries = function() {
     this.gameTempo -= 200;
   }
 
+  this.elementCount.text(this.gameSeries.length);
   this.previewSeries();
 }
 
@@ -274,7 +279,7 @@ Simon.prototype.eventFailed = function() {
     else {
       this.previewSeries();
     }
-  }.bind(this), Simon.Props.ERROR_SOUND_DURATION);
+  }.bind(this), Simon.Props.ACTION_DELAY);
 }
 
 Simon.prototype.init = function() {
