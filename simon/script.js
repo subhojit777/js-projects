@@ -4,10 +4,10 @@ function Simon() {
   this.buttonIndexes = [0, 1, 2, 3];
   this.gameSeries = [];
   this.gameTempo = 1000;
-  this.gameStatus = 0;
-  this.strictMode = 0;
-  this.gameStart = 0;
-  this.userTurn = 0;
+  this.gameStatus = false;
+  this.strictMode = false;
+  this.gameStart = false;
+  this.userTurn = false;
   this.userTurnCurrentIndex = -1;
   this.gameLastStepCount = 20;
 
@@ -44,18 +44,18 @@ Simon.Props = {
 
 Simon.prototype.eventGameStatus = function() {
   this.elementStatus.click(function() {
-    this.gameStatus = 1;
+    this.gameStatus = true;
   }.bind(this));
 }
 
 Simon.prototype.eventGameStart = function() {
   this.elementStart.click(function() {
-    if (this.gameStatus == 1) {
-      if (this.gameStart == 1) {
+    if (this.gameStatus) {
+      if (this.gameStart) {
         // TODO reset game
       }
       else {
-        this.gameStart = 1;
+        this.gameStart = true;
         this.generateSeries();
       }
     }
@@ -64,13 +64,21 @@ Simon.prototype.eventGameStart = function() {
 
 Simon.prototype.eventStrictMode = function() {
   this.elementStrict.click(function() {
-    this.strictMode = 1;
+    if (this.gameStatus) {
+      // Toggle strict mode.
+      if (this.strictMode) {
+        this.strictMode = false;
+      }
+      else {
+        this.strictMode = true;
+      }
+    }
   }.bind(this));
 }
 
 Simon.prototype.eventSquare0 = function() {
   this.elementSquare0.on('mousedown', function() {
-    if (this.userTurn == 1) {
+    if (this.userTurn) {
       if (this.gameSeries[this.userTurnCurrentIndex] == 0) {
         this.elementSquare0.addClass('blink');
         this.squareSound0.play();
@@ -87,7 +95,7 @@ Simon.prototype.eventSquare0 = function() {
     this.squareSound0.stop();
 
     if (this.userTurnCurrentIndex == this.gameSeries.length) {
-      this.userTurn = 0;
+      this.userTurn = false;
       this.generateSeries();
     }
   }.bind(this));
@@ -95,7 +103,7 @@ Simon.prototype.eventSquare0 = function() {
 
 Simon.prototype.eventSquare1 = function() {
   this.elementSquare1.on('mousedown', function() {
-    if (this.userTurn == 1) {
+    if (this.userTurn) {
       if (this.gameSeries[this.userTurnCurrentIndex] == 1) {
         this.elementSquare1.addClass('blink');
         this.squareSound1.play();
@@ -112,7 +120,7 @@ Simon.prototype.eventSquare1 = function() {
     this.squareSound1.stop();
 
     if (this.userTurnCurrentIndex == this.gameSeries.length) {
-      this.userTurn = 0;
+      this.userTurn = false;
       this.generateSeries();
     }
   }.bind(this));
@@ -120,7 +128,7 @@ Simon.prototype.eventSquare1 = function() {
 
 Simon.prototype.eventSquare2 = function() {
   this.elementSquare2.on('mousedown', function() {
-    if (this.userTurn == 1) {
+    if (this.userTurn) {
       if (this.gameSeries[this.userTurnCurrentIndex] == 2) {
         this.elementSquare2.addClass('blink');
         this.squareSound2.play();
@@ -137,7 +145,7 @@ Simon.prototype.eventSquare2 = function() {
     this.squareSound2.stop();
 
     if (this.userTurnCurrentIndex == this.gameSeries.length) {
-      this.userTurn = 0;
+      this.userTurn = false;
       this.generateSeries();
     }
   }.bind(this));
@@ -145,7 +153,7 @@ Simon.prototype.eventSquare2 = function() {
 
 Simon.prototype.eventSquare3 = function() {
   this.elementSquare3.on('mousedown', function() {
-    if (this.userTurn == 1) {
+    if (this.userTurn) {
       if (this.gameSeries[this.userTurnCurrentIndex] == 3) {
         this.elementSquare3.addClass('blink');
         this.squareSound3.play();
@@ -162,7 +170,7 @@ Simon.prototype.eventSquare3 = function() {
     this.squareSound3.stop();
 
     if (this.userTurnCurrentIndex == this.gameSeries.length) {
-      this.userTurn = 0;
+      this.userTurn = false;
       this.generateSeries();
     }
   }.bind(this));
@@ -183,7 +191,7 @@ Simon.prototype.previewSeries = function() {
     if (i >= this.gameSeries.length) {
       clearInterval(interval);
 
-      this.userTurn = 1;
+      this.userTurn = true;
       this.userTurnCurrentIndex = 0;
     }
   }.bind(this), this.gameTempo);
@@ -253,6 +261,12 @@ Simon.prototype.generateSeries = function() {
 
 Simon.prototype.eventFailed = function() {
   this.errorSound.play();
+  if (this.strictMode) {
+    this.gameSeries = [];
+
+    this.userTurn = false;
+    this.generateSeries();
+  }
 }
 
 Simon.prototype.delay = function() {
