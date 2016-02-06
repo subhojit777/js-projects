@@ -1,9 +1,11 @@
 'use strict';
 
+const INITIAL_GAME_TEMPO = 1000;
+
 function Simon() {
   this.buttonIndexes = [0, 1, 2, 3];
   this.gameSeries = [];
-  this.gameTempo = 1000;
+  this.gameTempo = INITIAL_GAME_TEMPO;
   this.gameStatus = false;
   this.strictMode = false;
   this.gameStart = false;
@@ -51,7 +53,26 @@ Simon.Props = {
  */
 Simon.prototype.eventGameStatus = function() {
   this.elementStatus.click(function() {
-    this.gameStatus = true;
+    if (this.gameStatus) {
+      // Make sure everything visual/audio events are stopped.
+      this.gameSeries = [];
+      this.gameTempo = INITIAL_GAME_TEMPO;
+      this.gameStatus = false;
+      this.gameStart = false;
+      this.userTurn = false;
+      this.elementCount.empty();
+      this.elementSquare0.removeClass('blink');
+      this.elementSquare1.removeClass('blink');
+      this.elementSquare2.removeClass('blink');
+      this.elementSquare3.removeClass('blink');
+      clearInterval(this.previewSeriesInterval);
+      Howler.mute();
+    }
+    else {
+      // Power on Simon game.
+      this.gameStatus = true;
+      Howler.unmute();
+    }
   }.bind(this));
 }
 
@@ -62,9 +83,21 @@ Simon.prototype.eventGameStart = function() {
   this.elementStart.click(function() {
     if (this.gameStatus) {
       if (this.gameStart) {
+        // Make sure everything visual/audio events are stopped.
+        this.gameSeries = [];
+        this.gameTempo = INITIAL_GAME_TEMPO;
+        this.userTurn = false;
+        this.elementCount.empty();
+        this.elementSquare0.removeClass('blink');
+        this.elementSquare1.removeClass('blink');
+        this.elementSquare2.removeClass('blink');
+        this.elementSquare3.removeClass('blink');
+        clearInterval(this.previewSeriesInterval);
+        Howler.mute();
+
         // Reset game.
         setTimeout(function() {
-          this.gameSeries = [];
+          Howler.unmute();
           this.generateSeries();
         }.bind(this), Simon.Props.ACTION_DELAY);
       }
@@ -98,7 +131,7 @@ Simon.prototype.eventStrictMode = function() {
  */
 Simon.prototype.eventSquare0 = function() {
   this.elementSquare0.on('mousedown', function() {
-    if (this.userTurn) {
+    if (this.userTurn && this.gameStart) {
       // If the right button is pressed.
       if (this.gameSeries[this.userTurnCurrentIndex] == 0) {
         this.elementSquare0.addClass('blink');
@@ -127,7 +160,7 @@ Simon.prototype.eventSquare0 = function() {
  */
 Simon.prototype.eventSquare1 = function() {
   this.elementSquare1.on('mousedown', function() {
-    if (this.userTurn) {
+    if (this.userTurn && this.gameStart) {
       // If the right button is pressed.
       if (this.gameSeries[this.userTurnCurrentIndex] == 1) {
         this.elementSquare1.addClass('blink');
@@ -156,7 +189,7 @@ Simon.prototype.eventSquare1 = function() {
  */
 Simon.prototype.eventSquare2 = function() {
   this.elementSquare2.on('mousedown', function() {
-    if (this.userTurn) {
+    if (this.userTurn && this.gameStart) {
       // If the right button is pressed.
       if (this.gameSeries[this.userTurnCurrentIndex] == 2) {
         this.elementSquare2.addClass('blink');
@@ -185,7 +218,7 @@ Simon.prototype.eventSquare2 = function() {
  */
 Simon.prototype.eventSquare3 = function() {
   this.elementSquare3.on('mousedown', function() {
-    if (this.userTurn) {
+    if (this.userTurn && this.gameStart) {
       // If the right button is pressed.
       if (this.gameSeries[this.userTurnCurrentIndex] == 3) {
         this.elementSquare3.addClass('blink');
@@ -225,11 +258,11 @@ Simon.prototype.previewSeries = function() {
 
   // Thanks :) http://codeplanet.io/building-simon-says-javascript
 	var i = 0;
-	var interval = setInterval(function() {
+  this.previewSeriesInterval = setInterval(function() {
     this.lightUp(this.gameSeries[i]);
     i++;
     if (i >= this.gameSeries.length) {
-      clearInterval(interval);
+      clearInterval(this.previewSeriesInterval);
 
       this.userTurn = true;
       this.userTurnCurrentIndex = 0;
