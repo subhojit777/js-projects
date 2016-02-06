@@ -39,7 +39,8 @@ function Simon() {
 
 Simon.Props = {
   INCREASE_TEMPO_LENGTHS: [5, 9, 13],
-  PREVIEW_SOUND_TEMPO: 350
+  PREVIEW_SOUND_TEMPO: 350,
+  ERROR_SOUND_DURATION: 1000
 };
 
 Simon.prototype.eventGameStatus = function() {
@@ -203,7 +204,7 @@ Simon.prototype.lightUp = function(index) {
       this.elementSquare0.addClass('blink');
       this.squareSound0.play();
 
-      window.setTimeout(function() {
+      setTimeout(function() {
         this.elementSquare0.removeClass('blink');
         this.squareSound0.stop();
       }.bind(this), Simon.Props.PREVIEW_SOUND_TEMPO);
@@ -214,7 +215,7 @@ Simon.prototype.lightUp = function(index) {
       this.elementSquare1.addClass('blink');
       this.squareSound1.play();
 
-      window.setTimeout(function() {
+      setTimeout(function() {
         this.elementSquare1.removeClass('blink');
         this.squareSound1.stop();
       }.bind(this), Simon.Props.PREVIEW_SOUND_TEMPO);
@@ -225,7 +226,7 @@ Simon.prototype.lightUp = function(index) {
       this.elementSquare2.addClass('blink');
       this.squareSound2.play();
 
-      window.setTimeout(function() {
+      setTimeout(function() {
         this.elementSquare2.removeClass('blink');
         this.squareSound2.stop();
       }.bind(this), Simon.Props.PREVIEW_SOUND_TEMPO);
@@ -236,7 +237,7 @@ Simon.prototype.lightUp = function(index) {
       this.elementSquare3.addClass('blink');
       this.squareSound3.play();
 
-      window.setTimeout(function() {
+      setTimeout(function() {
         this.elementSquare3.removeClass('blink');
         this.squareSound3.stop();
       }.bind(this), Simon.Props.PREVIEW_SOUND_TEMPO);
@@ -261,12 +262,19 @@ Simon.prototype.generateSeries = function() {
 
 Simon.prototype.eventFailed = function() {
   this.errorSound.play();
-  if (this.strictMode) {
-    this.gameSeries = [];
+  this.userTurn = false;
 
-    this.userTurn = false;
-    this.generateSeries();
-  }
+  setTimeout(function() {
+    this.errorSound.stop();
+
+    if (this.strictMode) {
+      this.gameSeries = [];
+      this.generateSeries();
+    }
+    else {
+      this.previewSeries();
+    }
+  }.bind(this), Simon.Props.ERROR_SOUND_DURATION);
 }
 
 Simon.prototype.delay = function() {
