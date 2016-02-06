@@ -37,22 +37,32 @@ function Simon() {
   });
 }
 
+/**
+ * Game properties.
+ */
 Simon.Props = {
   INCREASE_TEMPO_LENGTHS: [5, 9, 13],
   PREVIEW_SOUND_TEMPO: 350,
   ACTION_DELAY: 1000
 };
 
+/**
+ * Event handler for power button.
+ */
 Simon.prototype.eventGameStatus = function() {
   this.elementStatus.click(function() {
     this.gameStatus = true;
   }.bind(this));
 }
 
+/**
+ * Event handler for game start button.
+ */
 Simon.prototype.eventGameStart = function() {
   this.elementStart.click(function() {
     if (this.gameStatus) {
       if (this.gameStart) {
+        // Reset game.
         setTimeout(function() {
           this.gameSeries = [];
           this.generateSeries();
@@ -66,6 +76,9 @@ Simon.prototype.eventGameStart = function() {
   }.bind(this));
 }
 
+/**
+ * Event handler for strict button.
+ */
 Simon.prototype.eventStrictMode = function() {
   this.elementStrict.click(function() {
     if (this.gameStatus) {
@@ -80,9 +93,13 @@ Simon.prototype.eventStrictMode = function() {
   }.bind(this));
 }
 
+/**
+ * Event handler for first simon game button.
+ */
 Simon.prototype.eventSquare0 = function() {
   this.elementSquare0.on('mousedown', function() {
     if (this.userTurn) {
+      // If the right button is pressed.
       if (this.gameSeries[this.userTurnCurrentIndex] == 0) {
         this.elementSquare0.addClass('blink');
         this.squareSound0.play();
@@ -105,9 +122,13 @@ Simon.prototype.eventSquare0 = function() {
   }.bind(this));
 }
 
+/**
+ * Event handler for second simon game button.
+ */
 Simon.prototype.eventSquare1 = function() {
   this.elementSquare1.on('mousedown', function() {
     if (this.userTurn) {
+      // If the right button is pressed.
       if (this.gameSeries[this.userTurnCurrentIndex] == 1) {
         this.elementSquare1.addClass('blink');
         this.squareSound1.play();
@@ -130,9 +151,13 @@ Simon.prototype.eventSquare1 = function() {
   }.bind(this));
 }
 
+/**
+ * Event handler for third simon game button.
+ */
 Simon.prototype.eventSquare2 = function() {
   this.elementSquare2.on('mousedown', function() {
     if (this.userTurn) {
+      // If the right button is pressed.
       if (this.gameSeries[this.userTurnCurrentIndex] == 2) {
         this.elementSquare2.addClass('blink');
         this.squareSound2.play();
@@ -155,9 +180,13 @@ Simon.prototype.eventSquare2 = function() {
   }.bind(this));
 }
 
+/**
+ * Event handler for fourth simon game button.
+ */
 Simon.prototype.eventSquare3 = function() {
   this.elementSquare3.on('mousedown', function() {
     if (this.userTurn) {
+      // If the right button is pressed.
       if (this.gameSeries[this.userTurnCurrentIndex] == 3) {
         this.elementSquare3.addClass('blink');
         this.squareSound3.play();
@@ -180,11 +209,17 @@ Simon.prototype.eventSquare3 = function() {
   }.bind(this));
 }
 
+/**
+ * Get next sequence in game series.
+ */
 Simon.prototype.getNextSequence = function() {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
   return Math.floor(Math.random() * (3 - 0 + 1)) + 0;
 }
 
+/**
+ * Animate game series.
+ */
 Simon.prototype.previewSeries = function() {
   console.log(this.gameSeries);
 
@@ -202,6 +237,9 @@ Simon.prototype.previewSeries = function() {
   }.bind(this), this.gameTempo);
 }
 
+/**
+ * Light up simon game buttons.
+ */
 Simon.prototype.lightUp = function(index) {
   switch (index) {
     case 0:
@@ -250,6 +288,9 @@ Simon.prototype.lightUp = function(index) {
   }
 }
 
+/**
+ * Generate game series.
+ */
 Simon.prototype.generateSeries = function() {
   this.gameSeries.push(this.getNextSequence());
 
@@ -265,6 +306,9 @@ Simon.prototype.generateSeries = function() {
   this.previewSeries();
 }
 
+/**
+ * Event handler for wrong move.
+ */
 Simon.prototype.eventFailed = function() {
   this.errorSound.play();
   this.userTurn = false;
@@ -273,6 +317,7 @@ Simon.prototype.eventFailed = function() {
     this.errorSound.stop();
 
     if (this.strictMode) {
+      // Reset game.
       this.gameSeries = [];
       this.generateSeries();
     }
@@ -282,6 +327,9 @@ Simon.prototype.eventFailed = function() {
   }.bind(this), Simon.Props.ACTION_DELAY);
 }
 
+/**
+ * Initialize simon game.
+ */
 Simon.prototype.init = function() {
   this.eventGameStatus();
   this.eventGameStart();
