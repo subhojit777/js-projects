@@ -3,13 +3,12 @@
 function Simon() {
   this.buttonIndexes = [0, 1, 2, 3];
   this.gameSeries = [];
-  this.gameTempo = 800;
+  this.gameTempo = 1000;
   this.gameStatus = 0;
   this.strictMode = 0;
   this.gameStart = 0;
   this.userTurn = 0;
   this.userTurnCurrentIndex = -1;
-  this.increaseTempoLengths = [5, 9, 13];
   this.gameLastStepCount = 20;
 
   this.elementSquare0 = $('#0');
@@ -22,21 +21,26 @@ function Simon() {
   this.elementCount = $('#count');
 
   this.squareSound0 = new Howl({
-    urls: ['effects/simonSound0.wav']
+    urls: ['effects/simonSound0.mp3']
   });
   this.squareSound1 = new Howl({
-    urls: ['effects/simonSound1.wav']
+    urls: ['effects/simonSound1.mp3']
   });
   this.squareSound2 = new Howl({
-    urls: ['effects/simonSound2.wav']
+    urls: ['effects/simonSound2.mp3']
   });
   this.squareSound3 = new Howl({
-    urls: ['effects/simonSound3.wav']
+    urls: ['effects/simonSound3.mp3']
   });
   this.errorSound = new Howl({
     urls: ['effects/buzz.mp3']
   });
 }
+
+Simon.Props = {
+  INCREASE_TEMPO_LENGTHS: [5, 9, 13],
+  PREVIEW_SOUND_TEMPO: 350
+};
 
 Simon.prototype.eventGameStatus = function() {
   this.elementStatus.click(function() {
@@ -178,11 +182,11 @@ Simon.prototype.previewSeries = function() {
     i++;
     if (i >= this.gameSeries.length) {
       clearInterval(interval);
-    }
-  }.bind(this), 1000);
 
-  this.userTurn = 1;
-  this.userTurnCurrentIndex = 0;
+      this.userTurn = 1;
+      this.userTurnCurrentIndex = 0;
+    }
+  }.bind(this), this.gameTempo);
 }
 
 Simon.prototype.lightUp = function(index) {
@@ -194,7 +198,7 @@ Simon.prototype.lightUp = function(index) {
       window.setTimeout(function() {
         this.elementSquare0.removeClass('blink');
         this.squareSound0.stop();
-      }.bind(this), this.gameTempo);
+      }.bind(this), Simon.Props.PREVIEW_SOUND_TEMPO);
 
       break;
 
@@ -205,7 +209,7 @@ Simon.prototype.lightUp = function(index) {
       window.setTimeout(function() {
         this.elementSquare1.removeClass('blink');
         this.squareSound1.stop();
-      }.bind(this), this.gameTempo);
+      }.bind(this), Simon.Props.PREVIEW_SOUND_TEMPO);
 
       break;
 
@@ -216,7 +220,7 @@ Simon.prototype.lightUp = function(index) {
       window.setTimeout(function() {
         this.elementSquare2.removeClass('blink');
         this.squareSound2.stop();
-      }.bind(this), this.gameTempo);
+      }.bind(this), Simon.Props.PREVIEW_SOUND_TEMPO);
 
       break;
 
@@ -227,7 +231,7 @@ Simon.prototype.lightUp = function(index) {
       window.setTimeout(function() {
         this.elementSquare3.removeClass('blink');
         this.squareSound3.stop();
-      }.bind(this), this.gameTempo);
+      }.bind(this), Simon.Props.PREVIEW_SOUND_TEMPO);
 
       break;
   }
@@ -240,7 +244,7 @@ Simon.prototype.generateSeries = function() {
     // TODO show you are the winner
   }
 
-  if (this.increaseTempoLengths.indexOf(this.gameSeries.length) > -1) {
+  if (Simon.Props.INCREASE_TEMPO_LENGTHS.indexOf(this.gameSeries.length) > -1) {
     this.gameTempo -= 200;
   }
 
