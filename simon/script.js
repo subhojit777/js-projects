@@ -11,7 +11,6 @@ function Simon() {
   this.gameStart = false;
   this.userTurn = false;
   this.userTurnCurrentIndex = -1;
-  this.gameLastStepCount = 20;
 
   this.elementSquare0 = $('#0');
   this.elementSquare1 = $('#1');
@@ -45,7 +44,8 @@ function Simon() {
 Simon.Props = {
   INCREASE_TEMPO_LENGTHS: [5, 9, 13],
   PREVIEW_SOUND_TEMPO: 350,
-  ACTION_DELAY: 1000
+  ACTION_DELAY: 1000,
+  GAME_LAST_STEP_COUNT: 20
 };
 
 /**
@@ -327,8 +327,19 @@ Simon.prototype.lightUp = function(index) {
 Simon.prototype.generateSeries = function() {
   this.gameSeries.push(this.getNextSequence());
 
-  if (this.gameSeries.length > this.gameLastStepCount) {
-    // TODO show you are the winner
+  if (this.gameSeries.length > Simon.Props.GAME_LAST_STEP_COUNT) {
+    // Winner notification.
+    this.elementCount.text('**');
+    var i = 1;
+    var interval = setInterval(function() {
+      this.lightUp(this.gameSeries[Simon.Props.GAME_LAST_STEP_COUNT - 1]);
+      i++;
+      if (i >= 5) {
+        clearInterval(interval);
+      }
+    }.bind(this), 400);
+
+    return false;
   }
 
   if (Simon.Props.INCREASE_TEMPO_LENGTHS.indexOf(this.gameSeries.length) > -1) {
