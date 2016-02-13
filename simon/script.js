@@ -59,7 +59,7 @@ Simon.prototype.eventGameStart = function() {
         this.gameSeries = [];
         this.gameTempo = INITIAL_GAME_TEMPO;
         this.userTurn = false;
-        this.elementCount.empty();
+        this.elementCount.text('-');
         this.elementSquare0.removeClass('blink');
         this.elementSquare1.removeClass('blink');
         this.elementSquare2.removeClass('blink');
@@ -360,18 +360,20 @@ Simon.prototype.powerButtonAsSwitch = function() {
 
       if (!self.gameStatus) {
         // Simon board turned off, make sure everything visual/audio events are
-        // stopped.
+        // stopped/resetted.
         self.gameSeries = [];
         self.gameTempo = INITIAL_GAME_TEMPO;
         self.gameStatus = false;
         self.gameStart = false;
         self.userTurn = false;
+        self.strictMode = false;
         self.elementCount.empty();
         self.elementSquare0.removeClass('blink');
         self.elementSquare1.removeClass('blink');
         self.elementSquare2.removeClass('blink');
         self.elementSquare3.removeClass('blink');
         self.elementStart.removeClass('on');
+        self.elementStrict.removeClass('on');
         clearInterval(self.previewSeriesInterval);
         Howler.mute();
       }
