@@ -229,8 +229,6 @@ Simon.prototype.getNextSequence = function() {
  * Animate game series.
  */
 Simon.prototype.previewSeries = function() {
-  console.log(this.gameSeries);
-
   // Thanks :) http://codeplanet.io/building-simon-says-javascript
 	var i = 0;
   this.previewSeriesInterval = setInterval(function() {
