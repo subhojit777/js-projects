@@ -12,10 +12,10 @@ function Simon() {
   this.userTurn = false;
   this.userTurnCurrentIndex = -1;
 
-  this.elementSquare0 = $('#0');
-  this.elementSquare1 = $('#1');
-  this.elementSquare2 = $('#2');
-  this.elementSquare3 = $('#3');
+  this.elementSquare0 = $('#square0');
+  this.elementSquare1 = $('#square1');
+  this.elementSquare2 = $('#square2');
+  this.elementSquare3 = $('#square3');
   this.elementStrict = $('#strict');
   this.elementStart = $('#start');
   this.elementStatus = $('#status');
@@ -47,34 +47,6 @@ Simon.Props = {
   ACTION_DELAY: 1000,
   GAME_LAST_STEP_COUNT: 20
 };
-
-/**
- * Event handler for power button.
- */
-Simon.prototype.eventGameStatus = function() {
-  this.elementStatus.click(function() {
-    if (this.gameStatus) {
-      // Make sure everything visual/audio events are stopped.
-      this.gameSeries = [];
-      this.gameTempo = INITIAL_GAME_TEMPO;
-      this.gameStatus = false;
-      this.gameStart = false;
-      this.userTurn = false;
-      this.elementCount.empty();
-      this.elementSquare0.removeClass('blink');
-      this.elementSquare1.removeClass('blink');
-      this.elementSquare2.removeClass('blink');
-      this.elementSquare3.removeClass('blink');
-      clearInterval(this.previewSeriesInterval);
-      Howler.mute();
-    }
-    else {
-      // Power on Simon game.
-      this.gameStatus = true;
-      Howler.unmute();
-    }
-  }.bind(this));
-}
 
 /**
  * Event handler for game start button.
@@ -372,10 +344,46 @@ Simon.prototype.eventFailed = function() {
 }
 
 /**
+ * Convert power button as bootstrap switch.
+ */
+Simon.prototype.powerButtonAsSwitch = function() {
+  var self = this;
+  self.elementStatus.bootstrapSwitch({
+    state: false,
+    size: 'mini',
+    animate: false,
+    onSwitchChange: function(event, state) {
+      self.gameStatus = state;
+
+      if (!self.gameStatus) {
+        // Simon board turned off, make sure everything visual/audio events are
+        // stopped.
+        self.gameSeries = [];
+        self.gameTempo = INITIAL_GAME_TEMPO;
+        self.gameStatus = false;
+        self.gameStart = false;
+        self.userTurn = false;
+        self.elementCount.empty();
+        self.elementSquare0.removeClass('blink');
+        self.elementSquare1.removeClass('blink');
+        self.elementSquare2.removeClass('blink');
+        self.elementSquare3.removeClass('blink');
+        clearInterval(self.previewSeriesInterval);
+        Howler.mute();
+      }
+      else {
+        // Simon board turned on, make sure all audio is unmuted.
+        Howler.unmute();
+      }
+    }
+  });
+}
+
+/**
  * Initialize simon game.
  */
 Simon.prototype.init = function() {
-  this.eventGameStatus();
+  this.powerButtonAsSwitch();
   this.eventGameStart();
   this.eventStrictMode();
   this.eventSquare0();

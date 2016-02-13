@@ -1,11 +1,108 @@
+@font-face {
+  font-family: 'Digital Dismay';
+  src: url('fonts/Digital\ Dismay.otf') format('truetype');
+}
+body {
+  background: url('images/table-background.jpg');
+}
+.game {
+  height: 300px;
+  width: 300px;
+  margin: auto;
+  background: #000;
+  border-radius: 100%;
+  border: 10px solid #000;
+}
 .square {
-  height: 100px;
-  width: 100px;
-  border: 1px solid #EEEEEE;
+  height: 138px;
+  width: 138px;
+  border: 5px solid #000;
 }
 .inline {
   display: inline-block;
 }
-.blink {
-  background: #FF0000;
+#square0 {
+  background: #00A74A;
+  border-top-left-radius: 100%;
+}
+#square1 {
+  background: #9F0F17;
+  border-top-right-radius: 100%;
+}
+#square2 {
+  background: #CCA707;
+  border-bottom-left-radius: 100%;
+}
+#square3 {
+  background: #094A8F;
+  border-bottom-right-radius: 100%;
+}
+#square0.blink {
+  background: #0FFF7A;
+}
+#square1.blink {
+  background: #EB2D38;
+}
+#square2.blink {
+  background: #F9D744;
+}
+#square3.blink {
+  background: #0F7CF0;
+}
+#count {
+  border: 2px solid #000000;
+  height: 40px;
+  width: 50px;
+  border-radius: 5px;
+  color: #DC0D29;
+  font-family: 'Digital Dismay', Fallback, sans-serif;
+  font-size: 24px;
+  background: #32050C;
+}
+.vertical-align-bottom {
+  vertical-align: bottom;
+}
+.control-wrapper {
+  margin-top: 30px;
+  text-align: center;
+}
+.button {
+  border: 5px solid #000000;
+  border-radius: 50px;
+  padding: 10px;
+}
+.button:hover {
+  cursor: pointer;
+}
+.button-widget {
+  text-align: center;
+  width: 40px;
+}
+.label {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+.game-name {
+  font-family: "Alfa Slab One", cursive;
+}
+.controls-second {
+  margin-top: 20px;
+}
+.start-button-wrapper {
+  margin: 0 30px;
+}
+.start-button-wrapper .button {
+  background: #ff0000;
+}
+.strict-button-wrapper .button {
+  background: #ffff00;
+}
+.simon-board {
+  margin: 0 auto;
+  width: 400px;
+  border: 2px solid #cccccc;
+  border-radius: 10px;
+  margin-top: 10px;
+  padding-bottom: 15px;
+  background: #ffffff;
 }
