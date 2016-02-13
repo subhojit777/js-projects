@@ -86,7 +86,7 @@ body {
   font-family: "Alfa Slab One", cursive;
 }
 .controls-second {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .start-button-wrapper {
   margin: 0 30px;
@@ -111,4 +111,41 @@ body {
   margin-top: 10px;
   padding-bottom: 15px;
   background: #ffffff;
+}
+/* Thanks :) https://css-tricks.com/snippets/css/media-queries-for-standard-devices/ */
+/* iPhone 4, 4S, 5, 5S */
+@media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .simon-board {
+      width: 300px;
+    }
+    .game {
+      height: 290px;
+      width: 290px;
+      border-width: 13px;
+    }
+    .square {
+      height: 130px;
+      width: 130px;
+    }
+}
+/* iPhone 6 */
+@media only screen
+  and (min-device-width: 375px)
+  and (max-device-width: 667px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .simon-board {
+      width: 350px;
+    }
+}
+/* Nexus 5 */
+@media only screen
+  and (min-device-width: 360px)
+  and (max-device-width: 598px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .simon-board {
+      width: 340px;
+    }
 }
