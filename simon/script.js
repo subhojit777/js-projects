@@ -75,6 +75,7 @@ Simon.prototype.eventGameStart = function() {
       }
       else {
         this.gameStart = true;
+        this.elementStart.addClass('on');
         this.generateSeries();
       }
     }
@@ -90,9 +91,11 @@ Simon.prototype.eventStrictMode = function() {
       // Toggle strict mode.
       if (this.strictMode) {
         this.strictMode = false;
+        this.elementStrict.removeClass('on');
       }
       else {
         this.strictMode = true;
+        this.elementStrict.addClass('on');
       }
     }
   }.bind(this));
@@ -368,11 +371,13 @@ Simon.prototype.powerButtonAsSwitch = function() {
         self.elementSquare1.removeClass('blink');
         self.elementSquare2.removeClass('blink');
         self.elementSquare3.removeClass('blink');
+        self.elementStart.removeClass('on');
         clearInterval(self.previewSeriesInterval);
         Howler.mute();
       }
       else {
         // Simon board turned on, make sure all audio is unmuted.
+        self.elementCount.text('-');
         Howler.unmute();
       }
     }

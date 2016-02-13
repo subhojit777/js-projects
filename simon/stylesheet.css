@@ -59,8 +59,8 @@ body {
   font-size: 24px;
   background: #32050C;
 }
-.vertical-align-bottom {
-  vertical-align: bottom;
+.vertical-align-top {
+  vertical-align: top;
 }
 .control-wrapper {
   margin-top: 30px;
@@ -92,10 +92,16 @@ body {
   margin: 0 30px;
 }
 .start-button-wrapper .button {
-  background: #ff0000;
+  background: #9F0F17;
+}
+.start-button-wrapper .button.on {
+  background: #EB2D38;
 }
 .strict-button-wrapper .button {
-  background: #ffff00;
+  background: #CCA707;
+}
+.strict-button-wrapper .button.on {
+  background: #F9D744;
 }
 .simon-board {
   margin: 0 auto;
