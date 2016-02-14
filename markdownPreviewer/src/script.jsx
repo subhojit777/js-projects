@@ -1,3 +1,4 @@
+// Copied from https://facebook.github.io/react/
 var MarkdownPreviewer = React.createClass({
   getInitialState: function() {
     return {
