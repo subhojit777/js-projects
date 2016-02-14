@@ -3,7 +3,7 @@ var MarkdownPreviewer = React.createClass({
 
   getInitialState: function () {
     return {
-      value: 'Type some **markdown** here!'
+      value: 'Write some **markdown** here!'
     };
   },
   handleChange: function () {
