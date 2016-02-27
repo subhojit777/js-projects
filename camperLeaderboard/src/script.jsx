@@ -91,13 +91,25 @@ var CamperLeaderboard = React.createClass({
       this.setState({
         campers: data
       });
+
+      // Hide progress bar.
+      $('.board-wrapper').removeClass('hidden');
+      $('.progress').addClass('hidden');
+
+      // Enable tooltip.
       $('[data-toggle="tooltip"]').tooltip();
     }.bind(this));
   },
   componentDidMount: function() {
     var self = this;
+    var elementBoardWrapper = $('.board-wrapper');
+    var elementProgress = $('.progress');
 
     $('.dropdown-menu li').click(function() {
+      // Show progress bar.
+      elementBoardWrapper.addClass('hidden');
+      elementProgress.removeClass('hidden');
+
       // Do not do anything if the current selection is selected.
       if ($(this).attr('data-selected') == 'true') {
         return false;
@@ -114,6 +126,10 @@ var CamperLeaderboard = React.createClass({
               campers: data,
               selectedOptionText: 'Top thirty days campers'
             });
+
+            // Hide progress bar.
+            elementBoardWrapper.removeClass('hidden');
+            elementProgress.addClass('hidden');
           }.bind(self));
 
           break;
@@ -127,6 +143,10 @@ var CamperLeaderboard = React.createClass({
               campers: data,
               selectedOptionText: 'Top all time campers'
             });
+
+            // Hide progress bar.
+            elementBoardWrapper.removeClass('hidden');
+            elementProgress.addClass('hidden');
           }.bind(self));
 
           break;
@@ -138,8 +158,13 @@ var CamperLeaderboard = React.createClass({
       <div className="row">
         <div className="col-sm-12">
           <h3 className="text-center">Camper leader board</h3>
-          <Switcher selectedOptionText={this.state.selectedOptionText} />
-          <Board campers={this.state.campers} />
+          <div className="board-wrapper hidden">
+            <Switcher selectedOptionText={this.state.selectedOptionText} />
+            <Board campers={this.state.campers} />
+          </div>
+          <div className="progress">
+            <div className="progress-bar progress-bar-striped active" role="progressbar" style={{width: '100%'}}>Loading...</div>
+          </div>
         </div>
       </div>
     );

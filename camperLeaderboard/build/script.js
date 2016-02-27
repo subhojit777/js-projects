@@ -165,13 +165,25 @@ var CamperLeaderboard = React.createClass({
       this.setState({
         campers: data
       });
+
+      // Hide progress bar.
+      $('.board-wrapper').removeClass('hidden');
+      $('.progress').addClass('hidden');
+
+      // Enable tooltip.
       $('[data-toggle="tooltip"]').tooltip();
     }.bind(this));
   },
   componentDidMount: function () {
     var self = this;
+    var elementBoardWrapper = $('.board-wrapper');
+    var elementProgress = $('.progress');
 
     $('.dropdown-menu li').click(function () {
+      // Show progress bar.
+      elementBoardWrapper.addClass('hidden');
+      elementProgress.removeClass('hidden');
+
       // Do not do anything if the current selection is selected.
       if ($(this).attr('data-selected') == 'true') {
         return false;
@@ -188,6 +200,10 @@ var CamperLeaderboard = React.createClass({
               campers: data,
               selectedOptionText: 'Top thirty days campers'
             });
+
+            // Hide progress bar.
+            elementBoardWrapper.removeClass('hidden');
+            elementProgress.addClass('hidden');
           }.bind(self));
 
           break;
@@ -201,6 +217,10 @@ var CamperLeaderboard = React.createClass({
               campers: data,
               selectedOptionText: 'Top all time campers'
             });
+
+            // Hide progress bar.
+            elementBoardWrapper.removeClass('hidden');
+            elementProgress.addClass('hidden');
           }.bind(self));
 
           break;
@@ -219,8 +239,21 @@ var CamperLeaderboard = React.createClass({
           { className: 'text-center' },
           'Camper leader board'
         ),
-        React.createElement(Switcher, { selectedOptionText: this.state.selectedOptionText }),
-        React.createElement(Board, { campers: this.state.campers })
+        React.createElement(
+          'div',
+          { className: 'board-wrapper hidden' },
+          React.createElement(Switcher, { selectedOptionText: this.state.selectedOptionText }),
+          React.createElement(Board, { campers: this.state.campers })
+        ),
+        React.createElement(
+          'div',
+          { className: 'progress' },
+          React.createElement(
+            'div',
+            { className: 'progress-bar progress-bar-striped active', role: 'progressbar', style: { width: '100%' } },
+            'Loading...'
+          )
+        )
       )
     );
   }
