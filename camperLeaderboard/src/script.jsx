@@ -163,7 +163,7 @@ var CamperLeaderboard = React.createClass({
             <Board campers={this.state.campers} />
           </div>
           <div className="progress">
-            <div className="progress-bar progress-bar-striped active" role="progressbar" style={{width: '100%'}}>Loading...</div>
+            <div className="progress-bar progress-bar-striped active" role="progressbar" style={width: '100%'}>Loading...</div>
           </div>
         </div>
       </div>
