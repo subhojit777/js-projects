@@ -1,3 +1,5 @@
+'use strict';
+
 var mountNode = document.getElementById('camper-leaderboard');
 
 /**
@@ -9,8 +11,8 @@ var mountNode = document.getElementById('camper-leaderboard');
 var Switcher = React.createClass({
   render: function() {
     return (
-      <div className="dropdown">
-        <button className="btn btn-default dropdown-toggle" type="button" id="switcher-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{this.props.selectedOptionText} <span className="caret"></span></button>
+      <div className="dropdown switcher">
+        <button className="btn btn-primary dropdown-toggle" type="button" id="switcher-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{this.props.selectedOptionText} <span className="caret"></span></button>
         <ul className="dropdown-menu" aria-labelledby="switcher-menu">
           <li data-selected="true" data-val="topThirtyDaysCampers"><a href="#">Top thirty days campers</a></li>
           <li data-val="topAllTimeCampers"><a href="#">Top all time campers</a></li>
@@ -28,11 +30,11 @@ var Switcher = React.createClass({
 var Board = React.createClass({
   render: function() {
     return (
-      <div className="table-responsive">
-        <table className="table">
+      <div className="table-responsive board">
+        <table className="table table-bordered table-hover">
           <thead>
             <th>#</th>
-            <th>Camper name</th>
+            <th>Camper</th>
             <th>Points in last 30 days</th>
             <th>All time points</th>
           </thead>
@@ -57,7 +59,7 @@ var Row = React.createClass({
     return (
       <tr>
         <td>{this.props.position + 1}</td>
-        <td><a href={"http://www.freecodecamp.com/" + this.props.object.username} target="_blank"><img width="50px" height="50px" src={this.props.object.img} className="img-responsive img-thumbnail" /><span className="username">{this.props.object.username}</span></a></td>
+        <td><a href={"http://www.freecodecamp.com/" + this.props.object.username} target="_blank"><img src={this.props.object.img} className="img-responsive img-thumbnail camper-thumbnail" data-toggle="tooltip" data-placement="right" data-original-title={this.props.object.username} /></a></td>
         <td>{this.props.object.recent}</td>
         <td>{this.props.object.alltime}</td>
       </tr>
@@ -74,7 +76,7 @@ var CamperLeaderboard = React.createClass({
   getDefaultProps: function() {
     return {
       topThirtyDaysCampersSourceUrl: 'http://fcctop100.herokuapp.com/api/fccusers/top/recent',
-      topAllTimeCampersSourceUrl: 'http://fcctop100.herokuapp.com/api/fccusers/top/alltime',
+      topAllTimeCampersSourceUrl: 'http://fcctop100.herokuapp.com/api/fccusers/top/alltime'
     };
   },
   getInitialState: function() {
@@ -89,6 +91,7 @@ var CamperLeaderboard = React.createClass({
       this.setState({
         campers: data
       });
+      $('[data-toggle="tooltip"]').tooltip();
     }.bind(this));
   },
   componentDidMount: function() {
@@ -134,6 +137,7 @@ var CamperLeaderboard = React.createClass({
     return (
       <div className="row">
         <div className="col-sm-12">
+          <h3 className="text-center">Camper leader board</h3>
           <Switcher selectedOptionText={this.state.selectedOptionText} />
           <Board campers={this.state.campers} />
         </div>

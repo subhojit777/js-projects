@@ -1,3 +1,5 @@
+'use strict';
+
 var mountNode = document.getElementById('camper-leaderboard');
 
 /**
@@ -7,38 +9,38 @@ var mountNode = document.getElementById('camper-leaderboard');
  * campers.
  */
 var Switcher = React.createClass({
-  displayName: "Switcher",
+  displayName: 'Switcher',
 
   render: function () {
     return React.createElement(
-      "div",
-      { className: "dropdown" },
+      'div',
+      { className: 'dropdown switcher' },
       React.createElement(
-        "button",
-        { className: "btn btn-default dropdown-toggle", type: "button", id: "switcher-menu", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true" },
+        'button',
+        { className: 'btn btn-primary dropdown-toggle', type: 'button', id: 'switcher-menu', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },
         this.props.selectedOptionText,
-        " ",
-        React.createElement("span", { className: "caret" })
+        ' ',
+        React.createElement('span', { className: 'caret' })
       ),
       React.createElement(
-        "ul",
-        { className: "dropdown-menu", "aria-labelledby": "switcher-menu" },
+        'ul',
+        { className: 'dropdown-menu', 'aria-labelledby': 'switcher-menu' },
         React.createElement(
-          "li",
-          { "data-selected": "true", "data-val": "topThirtyDaysCampers" },
+          'li',
+          { 'data-selected': 'true', 'data-val': 'topThirtyDaysCampers' },
           React.createElement(
-            "a",
-            { href: "#" },
-            "Top thirty days campers"
+            'a',
+            { href: '#' },
+            'Top thirty days campers'
           )
         ),
         React.createElement(
-          "li",
-          { "data-val": "topAllTimeCampers" },
+          'li',
+          { 'data-val': 'topAllTimeCampers' },
           React.createElement(
-            "a",
-            { href: "#" },
-            "Top all time campers"
+            'a',
+            { href: '#' },
+            'Top all time campers'
           )
         )
       )
@@ -52,41 +54,41 @@ var Switcher = React.createClass({
  * Renders the main board where campers and their details are shown.
  */
 var Board = React.createClass({
-  displayName: "Board",
+  displayName: 'Board',
 
   render: function () {
     return React.createElement(
-      "div",
-      { className: "table-responsive" },
+      'div',
+      { className: 'table-responsive board' },
       React.createElement(
-        "table",
-        { className: "table" },
+        'table',
+        { className: 'table table-bordered table-hover' },
         React.createElement(
-          "thead",
+          'thead',
           null,
           React.createElement(
-            "th",
+            'th',
             null,
-            "#"
+            '#'
           ),
           React.createElement(
-            "th",
+            'th',
             null,
-            "Camper name"
+            'Camper'
           ),
           React.createElement(
-            "th",
+            'th',
             null,
-            "Points in last 30 days"
+            'Points in last 30 days'
           ),
           React.createElement(
-            "th",
+            'th',
             null,
-            "All time points"
+            'All time points'
           )
         ),
         React.createElement(
-          "tbody",
+          'tbody',
           null,
           this.props.campers.map(function (object, i) {
             return React.createElement(Row, { position: i, object: object, key: i });
@@ -103,38 +105,33 @@ var Board = React.createClass({
  * Renders "row" of `Board` component.
  */
 var Row = React.createClass({
-  displayName: "Row",
+  displayName: 'Row',
 
   render: function () {
     return React.createElement(
-      "tr",
+      'tr',
       null,
       React.createElement(
-        "td",
+        'td',
         null,
         this.props.position + 1
       ),
       React.createElement(
-        "td",
+        'td',
         null,
         React.createElement(
-          "a",
-          { href: "http://www.freecodecamp.com/" + this.props.object.username, target: "_blank" },
-          React.createElement("img", { width: "50px", height: "50px", src: this.props.object.img, className: "img-responsive img-thumbnail" }),
-          React.createElement(
-            "span",
-            { className: "username" },
-            this.props.object.username
-          )
+          'a',
+          { href: "http://www.freecodecamp.com/" + this.props.object.username, target: '_blank' },
+          React.createElement('img', { src: this.props.object.img, className: 'img-responsive img-thumbnail camper-thumbnail', 'data-toggle': 'tooltip', 'data-placement': 'right', 'data-original-title': this.props.object.username })
         )
       ),
       React.createElement(
-        "td",
+        'td',
         null,
         this.props.object.recent
       ),
       React.createElement(
-        "td",
+        'td',
         null,
         this.props.object.alltime
       )
@@ -148,7 +145,7 @@ var Row = React.createClass({
  * Main component that renders the whole stuff.
  */
 var CamperLeaderboard = React.createClass({
-  displayName: "CamperLeaderboard",
+  displayName: 'CamperLeaderboard',
 
   getDefaultProps: function () {
     return {
@@ -168,6 +165,7 @@ var CamperLeaderboard = React.createClass({
       this.setState({
         campers: data
       });
+      $('[data-toggle="tooltip"]').tooltip();
     }.bind(this));
   },
   componentDidMount: function () {
@@ -211,11 +209,16 @@ var CamperLeaderboard = React.createClass({
   },
   render: function () {
     return React.createElement(
-      "div",
-      { className: "row" },
+      'div',
+      { className: 'row' },
       React.createElement(
-        "div",
-        { className: "col-sm-12" },
+        'div',
+        { className: 'col-sm-12' },
+        React.createElement(
+          'h3',
+          { className: 'text-center' },
+          'Camper leader board'
+        ),
         React.createElement(Switcher, { selectedOptionText: this.state.selectedOptionText }),
         React.createElement(Board, { campers: this.state.campers })
       )
