@@ -14,8 +14,7 @@ var Switcher = React.createClass({
       <div className="dropdown switcher">
         <button className="btn btn-primary dropdown-toggle" type="button" id="switcher-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{this.props.selectedOptionText} <span className="caret"></span></button>
         <ul className="dropdown-menu" aria-labelledby="switcher-menu">
-          <li data-selected="true" data-val="topThirtyDaysCampers"><a href="#">Top thirty days campers</a></li>
-          <li data-val="topAllTimeCampers"><a href="#">Top all time campers</a></li>
+          <li data-val={this.props.anotherOption}><a href="#">{this.props.anotherOptionText}</a></li>
         </ul>
       </div>
     );
@@ -82,7 +81,9 @@ var CamperLeaderboard = React.createClass({
   getInitialState: function() {
     return {
       campers: [],
-      selectedOptionText: 'Top thirty days campers'
+      selectedOptionText: 'Top thirty days campers',
+      anotherOption: 'topAllTimeCampers',
+      anotherOptionText: 'Top all time campers'
     };
   },
   componentWillMount: function() {
@@ -110,11 +111,6 @@ var CamperLeaderboard = React.createClass({
       elementBoardWrapper.addClass('hidden');
       elementProgress.removeClass('hidden');
 
-      // Do not do anything if the current selection is selected.
-      if ($(this).attr('data-selected') == 'true') {
-        return false;
-      }
-
       // Perform action based on the selected option in `Switcher` component.
       switch ($(this).attr('data-val')) {
         case 'topThirtyDaysCampers':
@@ -124,7 +120,9 @@ var CamperLeaderboard = React.createClass({
           $.getJSON(self.props.topThirtyDaysCampersSourceUrl, function(data) {
             self.setState({
               campers: data,
-              selectedOptionText: 'Top thirty days campers'
+              selectedOptionText: 'Top thirty days campers',
+              anotherOption: 'topAllTimeCampers',
+              anotherOptionText: 'Top all time campers'
             });
 
             // Hide progress bar.
@@ -141,7 +139,9 @@ var CamperLeaderboard = React.createClass({
           $.getJSON(self.props.topAllTimeCampersSourceUrl, function(data) {
             self.setState({
               campers: data,
-              selectedOptionText: 'Top all time campers'
+              selectedOptionText: 'Top all time campers',
+              anotherOption: 'topThirtyDaysCampers',
+              anotherOptionText: 'Top thirty days campers'
             });
 
             // Hide progress bar.
@@ -159,7 +159,7 @@ var CamperLeaderboard = React.createClass({
         <div className="col-sm-12">
           <h3 className="text-center">Camper leader board</h3>
           <div className="board-wrapper hidden">
-            <Switcher selectedOptionText={this.state.selectedOptionText} />
+            <Switcher anotherOption={this.state.anotherOption} selectedOptionText={this.state.selectedOptionText} anotherOptionText={this.state.anotherOptionText} />
             <Board campers={this.state.campers} />
           </div>
           <div className="progress">
