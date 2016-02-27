@@ -1,5 +1,11 @@
 var mountNode = document.getElementById('camper-leaderboard');
 
+/**
+ * Switcher component.
+ *
+ * Provides option to switch between top thirty days campers and top all time
+ * campers.
+ */
 var Switcher = React.createClass({
   render: function() {
     return (
@@ -14,6 +20,11 @@ var Switcher = React.createClass({
   }
 });
 
+/**
+ * Board component.
+ *
+ * Renders the main board where campers and their details are shown.
+ */
 var Board = React.createClass({
   render: function() {
     return (
@@ -36,6 +47,11 @@ var Board = React.createClass({
   }
 });
 
+/**
+ * Row component.
+ *
+ * Renders "row" of `Board` component.
+ */
 var Row = React.createClass({
   render: function() {
     return (
@@ -49,6 +65,11 @@ var Row = React.createClass({
   }
 });
 
+/**
+ * CamperLeaderboard component.
+ *
+ * Main component that renders the whole stuff.
+ */
 var CamperLeaderboard = React.createClass({
   getDefaultProps: function() {
     return {
@@ -63,6 +84,7 @@ var CamperLeaderboard = React.createClass({
     };
   },
   componentWillMount: function() {
+    // By default show top thirty days campers.
     $.getJSON(this.props.topThirtyDaysCampersSourceUrl, function(data) {
       this.setState({
         campers: data
@@ -73,10 +95,12 @@ var CamperLeaderboard = React.createClass({
     var self = this;
 
     $('.dropdown-menu li').click(function() {
+      // Do not do anything if the current selection is selected.
       if ($(this).attr('data-selected') == 'true') {
         return false;
       }
 
+      // Perform action based on the selected option in `Switcher` component.
       switch ($(this).attr('data-val')) {
         case 'topThirtyDaysCampers':
           $(this).attr('data-selected', 'true');
