@@ -1,3 +1,9 @@
 [submodule "questionnaire"]
 	path = questionnaire
 	url = https://github.com/subhojit777/questionnaire.git
+[submodule "timestampMs"]
+	path = timestampMs
+	url = https://github.com/johnstonbl01/clementinejs-fcc.git
+[submodule "timestamp-basic"]
+	path = timestamp-basic
+	url = https://github.com/subhojit777/timestamp-basic.git
