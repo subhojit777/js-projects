@@ -7,3 +7,6 @@
 [submodule "timestamp-basic"]
 	path = timestamp-basic
 	url = https://github.com/subhojit777/timestamp-basic.git
+[submodule "reqHeaderParserMs"]
+	path = reqHeaderParserMs
+	url = https://github.com/subhojit777/reqHeaderParserMs.git
