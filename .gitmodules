@@ -10,3 +10,6 @@
 [submodule "timestamp-ms"]
 	path = timestamp-ms
 	url = https://github.com/subhojit777/timestamp-ms.git
+[submodule "imgSearchAbstraction"]
+	path = imgSearchAbstraction
+	url = https://github.com/subhojit777/imgSearchAbstraction.git
