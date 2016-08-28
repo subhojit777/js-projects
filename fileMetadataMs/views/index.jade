@@ -1,0 +1,6 @@
+extends layout
+
+block content
+  form(action='/get-file-size', method='post', id='file-metadata-form', enctype='multipart/form-data')
+    input(type='file', name='file')
+    input(type='submit', value='Submit')
