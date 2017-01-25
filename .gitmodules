@@ -16,3 +16,6 @@
 [submodule "fccVotingApp"]
 	path = fccVotingApp
 	url = https://github.com/subhojit777/fcc-voting-app.git
+[submodule "html-parser"]
+	path = html-parser
+	url = git@github.com:subhojit777/html-parser.git
